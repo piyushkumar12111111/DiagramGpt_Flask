@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diagram Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div>
+        <h1>Diagram Generator</h1>
+        <textarea id="prompt" rows="4" cols="50" placeholder="Describe your diagram..."></textarea>
+        <button onclick="generateDiagram()">Generate Diagram</button>
+        
+        <div id="result">
+            <img id="diagram" style="display: none; max-width: 100%;" />
+            <pre id="code" style="display: none;"></pre>
+        </div>
+    </div>
+
+    <script>
+        async function generateDiagram() {
+            const prompt = document.getElementById('prompt').value;
+            const resultDiv = document.getElementById('result');
+            const diagramImg = document.getElementById('diagram');
+            const codeBlock = document.getElementById('code');
+            
+            try {
+                const response = await axios.post('/api/diagrams/generate', { prompt });
+                diagramImg.src = `data:image/png;base64,${response.data.diagram_image}`;
+                diagramImg.style.display = 'block';
+                codeBlock.textContent = response.data.diagram_code;
+                codeBlock.style.display = 'block';
+            } catch (error) {
+                alert('Error generating diagram: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html> 
