@@ -13,8 +13,16 @@ def create_app(config_class=Config):
 
     # Initialize extensions
     db.init_app(app)
-    migrate.init_app(app, db)
-    CORS(app)
+    migrate.init_app(app)
+    
+    # Configure CORS to allow Streamlit requests
+    CORS(app, resources={
+        r"/api/*": {
+            "origins": ["http://localhost:8501"],  # Streamlit default port
+            "methods": ["GET", "POST"],
+            "allow_headers": ["Content-Type"]
+        }
+    })
 
     # Register blueprints
     from app.routes import main_bp
