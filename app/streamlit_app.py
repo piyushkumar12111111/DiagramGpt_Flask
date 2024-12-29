@@ -4,12 +4,16 @@ import base64
 from PIL import Image
 import io
 import json
+import os
 
 st.set_page_config(
     page_title="Architecture Diagram Generator",
     page_icon="🔧",
     layout="wide"
 )
+
+# Add configuration for API URL
+API_URL = os.getenv('API_URL', 'http://localhost:5000')
 
 def main():
     st.title("Architecture Diagram Generator 🏗️")
@@ -38,7 +42,7 @@ def main():
                     try:
                         # Make request to Flask backend
                         response = requests.post(
-                            "http://localhost:5000/api/diagrams/generate",
+                            f"{API_URL}/api/diagrams/generate",
                             json={"prompt": prompt}
                         )
                         

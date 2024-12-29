@@ -1,0 +1,27 @@
+name: diagram-generator
+services:
+- name: web
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: your-username/your-repo
+  build_command: pip install -r requirements.txt
+  run_command: gunicorn run:app
+  envs:
+  - key: FLASK_APP
+    value: run.py
+  - key: DATABASE_URL
+    value: ${db.DATABASE_URL}
+  - key: GEMINI_API_KEY
+    scope: RUN_TIME
+    value: your_gemini_api_key
+  - key: CORS_ORIGINS
+    value: https://your-domain.com
+
+- name: streamlit
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: your-username/your-repo
+  build_command: pip install -r requirements.txt
+  run_command: streamlit run app/streamlit_app.py

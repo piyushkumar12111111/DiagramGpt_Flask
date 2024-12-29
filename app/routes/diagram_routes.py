@@ -3,12 +3,20 @@ from app import db
 from app.models.diagram import DiagramRequest
 from app.services.gemini_service import GeminiService
 from app.services.diagram_service import DiagramService
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 diagram_bp = Blueprint('diagram', __name__)
 gemini_service = GeminiService()
 diagram_service = DiagramService()
 
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
+)
+
 @diagram_bp.route('/generate', methods=['POST'])
+@limiter.limit("20 per minute")
 def generate_diagram():
     diagram_request = None
     try:
