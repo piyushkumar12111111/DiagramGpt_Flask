@@ -2,7 +2,8 @@
 
 An AI-powered tool that generates AWS architecture diagrams from natural language descriptions using Python, Flask, Streamlit, and Google's Gemini AI.
 
-![Architecture Diagram Generator](docs/images/app_screenshot.png)
+![Architecture Diagram Generator](![image](https://github.com/user-attachments/assets/59ea34cf-08c2-4928-9d26-85514920eaaf)
+)
 
 ## Features 🌟
 
