@@ -36,5 +36,3 @@ The application follows a microservices architecture:
 - Google Gemini API key
 
 ## Installation 🚀
-
-1. **Clone the repository**
